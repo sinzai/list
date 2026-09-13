@@ -1,0 +1,28 @@
+{
+  "name": "FediLIST",
+  "short_name": "FediLIST",
+  "description": "Mastodon/Misskeyのフォロー・フォロワーリストを抽出するツール",
+  "start_url": "./",
+  "id": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#050805",
+  "theme_color": "#050805",
+  "lang": "ja",
+  "categories": ["utilities", "developer", "social"],
+  "icons": [
+    {
+      "src": "/image/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/image/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
