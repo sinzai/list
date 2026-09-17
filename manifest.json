@@ -1,7 +1,7 @@
 {
-  "name": "FediLIST",
-  "short_name": "FediLIST",
-  "description": "Mastodon/Misskeyのフォロー・フォロワーリストを抽出するツール",
+  "name": "FediList",
+  "short_name": "FediList",
+  "description": "Mastodon/Misskeyのフォロー・フォロワーを抽出するツール",
   "start_url": "./",
   "id": "./",
   "scope": "./",
