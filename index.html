@@ -3,75 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title></title>
+  <title>FediLIST_NEXUS</title>
   <link rel="icon" href="/image/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="/image/icon.png">
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#050805">
+  <meta name="theme-color" content="#010a13">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="hud-grid"></div>
   <div class="scanlines"></div>
 
   <div class="app-shell">
 
     <header class="app-header">
-      <div class="terminal-prompt">
-      </div>
-      <h1>FEDIVERSE_LIST</h1>
-      <p class="app-subtitle">Fediverseネットワークノードに接続し、フォロー/フォロワー関係を抽出します。</p>
+      <div class="terminal-prompt"></div>
+      <h1 class="glitch" data-text="FEDIVERSE_NEXUS">FEDIVERSE_NEXUS</h1>
+      <p class="app-subtitle">>> TARGET_NODE: CONNECTED / RELATION_DATA: EXTRACT</p>
     </header>
 
-    <div id="offlineBanner" class="offline-banner" hidden>
-    </div>
+    <div id="offlineBanner" class="offline-banner" hidden></div>
 
-    <div class="card terminal-window">
+    <div class="card hud-window">
       <div class="window-header">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
+        <span class="hud-sys-text">SYS.OP // NODE_EXTRACTOR v2.0</span>
+        <div class="hud-lines"></div>
       </div>
 
       <div class="window-body">
         <div class="field-row">
           <div class="form-group">
-            <label for="platform">> プラットフォーム</label>
-            <select id="platform">
-              <option value="mastodon">Mastodon</option>
-              <option value="misskey">Misskey</option>
-            </select>
+            <label for="platform">:: PLATFORM</label>
+            <div class="select-wrapper">
+              <select id="platform">
+                <option value="mastodon">Mastodon</option>
+                <option value="misskey">Misskey</option>
+              </select>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="listType">> 取得対象</label>
-            <select id="listType">
-              <option value="following">フォロー中</option>
-              <option value="followers">フォロワー</option>
-            </select>
+            <label for="listType">:: TARGET_DATA</label>
+            <div class="select-wrapper">
+              <select id="listType">
+                <option value="following">FOLLOWING (フォロー中)</option>
+                <option value="followers">FOLLOWERS (フォロワー)</option>
+              </select>
+            </div>
           </div>
         </div>
 
         <div class="field-row">
           <div class="form-group">
-            <label for="server">> インスタンス</label>
+            <label for="server">:: INSTANCE_URL</label>
             <input type="text" id="server" placeholder="mastodon.social" autocomplete="off" spellcheck="false" inputmode="url">
           </div>
 
           <div class="form-group">
-            <label for="username">> ユーザー名</label>
+            <label for="username">:: USER_ID</label>
             <input type="text" id="username" placeholder="username" autocomplete="off" spellcheck="false">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="token">> アクセストークン [任意]</label>
-          <input type="password" id="token" placeholder="" autocomplete="off" spellcheck="false">
+          <label for="token">:: AUTH_TOKEN [OPTIONAL]</label>
+          <input type="password" id="token" placeholder="****************" autocomplete="off" spellcheck="false">
         </div>
 
         <div class="btn-group">
-          <button id="fetchBtn" class="btn-primary">実行</button>
-          <button id="cancelBtn" class="btn-danger" style="display:none;">中断</button>
+          <button id="fetchBtn" class="btn-primary">[ UPLINK_INIT ]</button>
+          <button id="cancelBtn" class="btn-danger" style="display:none;">[ ABORT_SYS ]</button>
         </div>
 
         <div class="progress-bar-outer" id="progressBarOuter">
@@ -79,19 +81,18 @@
         </div>
         <div id="status"></div>
 
-        <textarea id="output" readonly spellcheck="false" placeholder="// 抽出結果がここに表示されます..."></textarea>
+        <textarea id="output" readonly spellcheck="false" placeholder=">> WAITING FOR DATASTREAM..."></textarea>
 
         <div class="btn-group">
-          <button id="copyBtn" style="display:none;">[JSONをコピー]</button>
-          <button id="downloadBtn" class="btn-success" style="display:none;">[JSON出力]</button>
-          <button id="downloadCsvBtn" class="btn-secondary" style="display:none;">[CSV出力]</button>
+          <button id="copyBtn" class="btn-action" style="display:none;">[ DATA.COPY ]</button>
+          <button id="downloadBtn" class="btn-success" style="display:none;">[ DL:JSON ]</button>
+          <button id="downloadCsvBtn" class="btn-secondary" style="display:none;">[ DL:CSV ]</button>
         </div>
       </div>
-
     </div>
 
     <footer class="app-footer">
-      <span id="pwaStatus"></span> - <button id="pwaInstallBtn" class="pwa-install-btn" style="display:none;">[アプリをインストール]</button>
+      <span id="pwaStatus"></span> - <button id="pwaInstallBtn" class="pwa-install-btn" style="display:none;">[ INSTALL_MODULE ]</button>
     </footer>
   </div>
 
