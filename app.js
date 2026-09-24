@@ -201,10 +201,31 @@ async function fetchMastodonList(server, token, targetUser, listType, signal) {
 
   if (targetUser) {
     const cleanUser = targetUser.replace(/^@/, '');
-    const lookupRes = await fetchWithRetry(`https://${server}/api/v1/accounts/lookup?acct=${encodeURIComponent(cleanUser)}`, { headers }, signal);
-    if (!lookupRes.ok) throw new Error('指定されたユーザーの検索に失敗しました。');
-    const targetAccount = await lookupRes.json();
-    accountId = targetAccount.id;
+    
+    // 1. まず lookup API を試す
+    let lookupRes = await fetchWithRetry(`https://${server}/api/v1/accounts/lookup?acct=${encodeURIComponent(cleanUser)}`, { headers }, signal);
+    
+    if (lookupRes.ok) {
+      const targetAccount = await lookupRes.json();
+      accountId = targetAccount.id;
+    } else {
+      // 2. lookup API に失敗した場合（fedibird 等）、search API でフォールバック検索する
+      const searchRes = await fetchWithRetry(`https://${server}/api/v2/search?q=${encodeURIComponent(cleanUser)}&type=accounts&resolve=true`, { headers }, signal);
+      if (!searchRes.ok) throw new Error('指定されたユーザーの検索に失敗しました。');
+      
+      const searchData = await searchRes.json();
+      if (!searchData.accounts || searchData.accounts.length === 0) {
+        throw new Error('指定されたユーザーが見つかりませんでした。');
+      }
+      
+      // 完全一致するアカウントを探す（見つからなければ先頭のユーザーを採用）
+      const found = searchData.accounts.find(a => 
+        a.username.toLowerCase() === cleanUser.split('@')[0].toLowerCase() || 
+        a.acct.toLowerCase() === cleanUser.toLowerCase()
+      ) || searchData.accounts[0];
+      
+      accountId = found.id;
+    }
   } else {
     if (!token) throw new Error('ユーザー名未入力の場合、アクセストークンが必要です。');
     const verifyRes = await fetchWithRetry(`https://${server}/api/v1/accounts/verify_credentials`, { headers }, signal);
